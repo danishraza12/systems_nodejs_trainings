@@ -1,7 +1,7 @@
 {
-  "name": "session_1",
+  "name": "session_2",
   "version": "1.0.0",
-  "description": "session 1 assignment",
+  "description": "session 2 assignment",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -14,11 +14,13 @@
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "jsonwebtoken": "^9.0.0",
+    "mongoose": "^7.3.0",
     "ts-node-dev": "^2.0.0",
     "tsc": "^2.0.4"
   },
   "devDependencies": {
     "@types/jsonwebtoken": "^9.0.2",
+    "@types/mongoose": "^5.11.97",
     "ts-node": "^10.9.1",
     "typescript": "^5.1.3"
   }
