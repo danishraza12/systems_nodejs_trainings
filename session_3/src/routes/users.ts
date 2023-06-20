@@ -10,7 +10,7 @@ router.get('/user', verifyUser, async (req: Request, res: Response) => {
   const user = await User.find({email: email}, {password: 0});
   
   const response = {
-    status: "User found!",
+    message: "User found!",
     user
   }
   res.status(200).send(response)

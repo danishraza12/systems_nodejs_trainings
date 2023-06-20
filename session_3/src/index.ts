@@ -5,6 +5,8 @@ import mongoose from 'mongoose';
 import { userRouter } from './routes/users'
 import { loginRouter } from './routes/login'
 import { signupRouter } from './routes/signup';
+import { productRouter } from './routes/product';
+import { productCategoryRouter } from './routes/productCategory';
 
 const app = express();
 app.use(json())
@@ -13,6 +15,8 @@ dotenv.config()
 app.use(userRouter);
 app.use(loginRouter);
 app.use(signupRouter);
+app.use(productRouter);
+app.use(productCategoryRouter);
 
 const port = 5001;
 
