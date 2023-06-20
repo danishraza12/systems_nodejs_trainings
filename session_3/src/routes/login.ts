@@ -13,13 +13,19 @@ router.post("/login", async (req: Request, res: Response) => {
   });
   console.log("User: ", user);
 
+  if (!user) {
+    res.status(200).send({
+      message: "User not found!",
+    });
+  }
+
   if (email !== user?.email && password !== user?.password) {
     res.status(200).send({
       message: "Invalid email or password",
     });
   }
 
-  const token = createJWT(req.body.email, req.body.password);
+  const token = createJWT(req.body.email, req.body.password, user!._id);
 
   const response = {
     message: "Login Successfull!",

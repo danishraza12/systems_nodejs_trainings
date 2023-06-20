@@ -22,15 +22,16 @@ export const verifyUser = (req: any, res: Response, next: NextFunction) => {
   }
 }
 
-export const createJWT = (email: string, password: string) => {
+export const createJWT = (email: string, password: string, userId: string) => {
   try {
     const user = {
       email,
-      password
+      password,
+      userId
     }
-    console.log("User", user);
+    console.log("JWT signing credentials", user);
   
-    const token = jwt.sign({ email: user.email, password: user.password }, SECRET_KEY, {
+    const token = jwt.sign({ email: user.email, password: user.password, userId: user.password }, SECRET_KEY, {
       expiresIn: '2 days',
     });
 
