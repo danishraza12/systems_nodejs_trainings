@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from "express";
 import jwt, { Secret } from 'jsonwebtoken';
+import { iJWT } from "../interfaces/jwt";
 
 export const SECRET_KEY: Secret = process.env.JWT_SECRET ?? "My_Test_JWT_Key";
-
 
 export const verifyUser = (req: any, res: Response, next: NextFunction) => {
   try {
@@ -14,7 +14,7 @@ export const verifyUser = (req: any, res: Response, next: NextFunction) => {
   
     const decoded = jwt.verify(token, SECRET_KEY);
     console.log("Decoded JWT: ", decoded);
-    req.currentUser = decoded;
+    req.currentUser = decoded as iJWT;
     next();
   } catch (err) {
     console.log("Error - verifyUser: ", err.message)
@@ -31,7 +31,7 @@ export const createJWT = (email: string, password: string, userId: string) => {
     }
     console.log("JWT signing credentials", user);
   
-    const token = jwt.sign({ email: user.email, password: user.password, userId: user.password }, SECRET_KEY, {
+    const token = jwt.sign({ email: user.email, password: user.password, userId: user.userId }, SECRET_KEY, {
       expiresIn: '2 days',
     });
 

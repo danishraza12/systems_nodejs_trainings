@@ -2,7 +2,7 @@ import mongoose, { Schema, Model, Document } from "mongoose";
 
 interface CheckoutAttrs {
   userId: Schema.Types.ObjectId;
-  productId: Schema.Types.ObjectId;
+  products: Products[];
   discount: number;
 }
 
@@ -12,9 +12,30 @@ interface CheckoutModel extends Model<CheckoutDoc> {
 
 interface CheckoutDoc extends Document {
   userId: Schema.Types.ObjectId;
-  productId: Schema.Types.ObjectId;
+  products: Products[];
   discount: number;
 }
+
+interface Products {
+  productId: string;
+  quantity: number;
+  price: number;
+}
+
+const productSchema = new mongoose.Schema(
+  {
+    productId: {
+      type: String,
+    },
+    quantity: {
+      type: Number,
+    },
+    price: {
+      type: Number,
+    },
+  },
+  { _id: false }
+);
 
 const CheckoutSchema = new Schema(
   {
@@ -23,14 +44,13 @@ const CheckoutSchema = new Schema(
       ref: "User",
       required: true,
     },
-    productId: {
-      type: Schema.Types.ObjectId,
-      ref: "Product",
+    products: {
+      type: [productSchema],
       required: true,
     },
     discount: {
       type: Number,
-      default: 0
+      default: 0,
     },
   },
   {

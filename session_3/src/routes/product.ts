@@ -9,7 +9,10 @@ const router = express.Router();
 router.get(
   "/product",
   verifyUser,
-  [query("name").optional().isString(), query("categoryId").optional().isString()],
+  [
+    query("name").optional().isString(),
+    query("categoryId").optional().isString(),
+  ],
   requestValidator,
   async (req: Request, res: Response) => {
     try {
@@ -19,7 +22,9 @@ router.get(
       name && (queryObj.name = name);
       categoryId && (queryObj.categoryId = categoryId);
 
-      const product = await Product.find(queryObj);
+      const product = await Product.find(queryObj).populate({
+        path: "categoryId",
+      });
 
       const response = {
         message: "Product(s) found!",

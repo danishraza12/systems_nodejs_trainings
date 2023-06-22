@@ -7,6 +7,8 @@ import { loginRouter } from './routes/login'
 import { signupRouter } from './routes/signup';
 import { productRouter } from './routes/product';
 import { productCategoryRouter } from './routes/productCategory';
+import { cartRouter } from './routes/cart';
+import { checkoutRouter } from './routes/checkout';
 
 const app = express();
 app.use(json())
@@ -17,8 +19,10 @@ app.use(loginRouter);
 app.use(signupRouter);
 app.use(productRouter);
 app.use(productCategoryRouter);
+app.use(cartRouter);
+app.use(checkoutRouter);
 
-const port = 5001;
+const port = 5001 || process.env.PORT;
 
 
 const start = async () => {
