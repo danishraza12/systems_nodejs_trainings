@@ -1,8 +1,9 @@
 import express, { Request, Response } from "express";
 import { verifyUser } from "../middlewares/jwt";
 import { Cart } from "../models/cart";
-import { body, query } from "express-validator";
+import { body } from "express-validator";
 import { requestValidator } from "../middlewares/requestValidator";
+import { iCartPutRequest, iCartGetRequest } from "../interfaces/cart";
 
 const router = express.Router();
 
@@ -15,7 +16,7 @@ router.get(
     try {
       const { userId } = req.currentUser;
 
-      const queryObj: any = {};
+      const queryObj: iCartGetRequest = {};
       userId && (queryObj.userId = userId);
 
       const cart = await Cart.find(queryObj).populate({
@@ -92,7 +93,7 @@ router.put(
     try {
       const { id, quantity } = req.body;
 
-      const updateObj: any = {};
+      const updateObj: iCartPutRequest = {};
       quantity && (updateObj.quantity = quantity);
 
       const updatedItem = await Cart.findByIdAndUpdate(id, updateObj, {
