@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from "express";
+import { Response, NextFunction } from "express";
 import jwt, { Secret } from 'jsonwebtoken';
 import { iJWT } from "../interfaces/jwt";
 
@@ -6,7 +6,7 @@ export const SECRET_KEY: Secret = process.env.JWT_SECRET ?? "My_Test_JWT_Key";
 
 export const verifyUser = (req: any, res: Response, next: NextFunction) => {
   try {
-    let token = req.header('Authorization')?.replace('Bearer ', '');
+    const token = req.header('Authorization')?.replace('Bearer ', '');
   
     if (!token) {
       throw new Error("Please add token in request!");
